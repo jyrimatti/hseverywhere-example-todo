@@ -58,7 +58,7 @@ Installation
 
 1. install `Nix <https://nixos.org/nixpkgs/>`_. You should already have it.
 2. install XCode if running in OSX. Install VirtualBox if you want to build for Windows. No other dependencies should be needed.
-3. ``git clone https://github.com/jyrimatti/hseverywhere``
+3. ``git clone https://github.com/jyrimatti/hseverywhere-example-todo``
 4. Execute ``quickstart.sh`` to download and install half the Internet, initialize, build, package and run everything.
 
 Tested in OSX.
