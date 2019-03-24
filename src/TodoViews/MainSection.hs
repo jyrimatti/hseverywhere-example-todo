@@ -18,14 +18,10 @@ import           React.Flux.Rn.Views
 
 import           React.Flux                                        (elemShow,
                                                                     elemString)
-import  React.Flux.Rn.Components.Text         
-import  React.Flux.Rn.Components.TouchableOpacity
-import  React.Flux.Rn.Components.TouchableWithoutFeedback
-import  React.Flux.Rn.Components.View                    
-import qualified React.Flux.Rn.Components.Text                     as T
-import qualified React.Flux.Rn.Components.TouchableOpacity         as TO
-import qualified React.Flux.Rn.Components.TouchableWithoutFeedback as TWF
-import qualified React.Flux.Rn.Components.View                     as V
+import           React.Flux.Rn.Components.Text
+import           React.Flux.Rn.Components.TouchableOpacity
+import           React.Flux.Rn.Components.TouchableWithoutFeedback
+import           React.Flux.Rn.Components.View
 import           React.Flux.Rn.Styles.Text
 import qualified React.Flux.Rn.Styles.TextInput                    as TI_
 import qualified React.Flux.Rn.Styles.View                         as V_
@@ -40,21 +36,21 @@ mainSection todoState@(TodoState todos filt) =
         doFilter AcceptCompleted = filter (todoComplete . snd)
         allCompleted = all (todoComplete . snd) todos
     in
-        view [ V.style [ V_.backgroundColor "#fff"
+        view [ style [ V_.backgroundColor "#fff"
                        , V_.marginHorizontal 30
                        , V_.shadowOffset $ ContentSize 0 2
                        , V_.shadowRadius 4
                        , V_.shadowColor $ Rgba 0 0 0 0.2
                        , V_.shadowOpacity 1
                        ]] $ do
-            view [ V.style [ V_.flexDirection Row ]] $ do
-                touchableOpacity [ TO.onPress $ dispatchTodo ToggleAllComplete ] $
-                    view [ V.style [ V_.alignItems Center______
+            view [ style [ V_.flexDirection Row ]] $ do
+                touchableOpacity [ onPress $ dispatchTodo ToggleAllComplete ] $
+                    view [ style [ V_.alignItems Center______
                                    , V_.alignSelf Center____
                                    , V_.flexDirection Column
                                    , V_.width 50
                                    ]] $
-                        text [ T.style [ transform [RotateZ (Deg 90.0)]
+                        text [ style [ transform [RotateZ (Deg 90.0)]
                                        , color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
                                        , fontSize 20
                                        , fontFamily "HelveticaNeue"
@@ -68,7 +64,7 @@ mainSection todoState@(TodoState todos filt) =
                                               , tiaValue = Nothing
                                               }
 
-            view [ V.style [ V_.borderTopWidth 1
+            view [ style [ V_.borderTopWidth 1
                            , V_.borderTopColor "#e6e6e6"
                            ]] $
                 forM_ (doFilter filt todos) todoItem
@@ -78,11 +74,11 @@ mainSection todoState@(TodoState todos filt) =
 todoItem = mkView "todo item" $ \(todoIdx, todo) ->
     let isComplete = todoComplete todo
     in
-        view [ V.style [ V_.flexDirection Row ] ] $ do
+        view [ style [ V_.flexDirection Row ] ] $ do
             unless (todoIsEditing todo) $ do
-                touchableWithoutFeedback [ TWF.onPress $ dispatchTodo $ TodoSetComplete todoIdx (not isComplete) ] $
+                touchableWithoutFeedback [ onPress $ dispatchTodo $ TodoSetComplete todoIdx (not isComplete) ] $
                     -- I guess IOS does not support rendering inline SVG, so let's use border and unicode instead of a check-mark image.
-                    view [ V.style [ V_.width 30
+                    view [ style [ V_.width 30
                                    , V_.height 30
                                    , V_.alignSelf Center____
                                    , V_.marginLeft 8
@@ -92,13 +88,13 @@ todoItem = mkView "todo item" $ \(todoIdx, todo) ->
                                    , V_.borderColor "#bddad5"
                                    , V_.alignItems Center______
                                    ]] $
-                        text [ T.style [ fontSize 20, color "#5dc2af", fontFamily "HelveticaNeue" ]] $
+                        text [ style [ fontSize 20, color "#5dc2af", fontFamily "HelveticaNeue" ]] $
                             if isComplete then "\x2713" else ""
-                touchableOpacity [ TO.onLongPress $ dispatchTodo $ TodoEdit todoIdx ] $
-                    view [ V.style [ V_.padding 15
+                touchableOpacity [ onLongPress $ dispatchTodo $ TodoEdit todoIdx ] $
+                    view [ style [ V_.padding 15
                                    , V_.flex 1
                                    ]] $
-                        text [ T.style [ fontSize 22
+                        text [ style [ fontSize 22
                                        , marginVertical 3
                                        , fontWeight W300
                                        , color $ Color $ if isComplete then "#d9d9d9" else "#4d4d4d"
@@ -108,21 +104,21 @@ todoItem = mkView "todo item" $ \(todoIdx, todo) ->
                             elemString $ todoText todo
 
             when (todoIsEditing todo) $ do
-                touchableWithoutFeedback [ TWF.onPress $ dispatchTodo $ TodoDelete todoIdx ] $
-                    view [ V.style [ V_.width 30
+                touchableWithoutFeedback [ onPress $ dispatchTodo $ TodoDelete todoIdx ] $
+                    view [ style [ V_.width 30
                                    , V_.height 30
                                    , V_.alignSelf Center____
                                    , V_.marginLeft 8
                                    , V_.paddingTop 4
                                    , V_.alignItems Center______
                                    ]] $
-                        text [ T.style [ fontSize 20
+                        text [ style [ fontSize 20
                                        , fontFamily "HelveticaNeue"
                                        , color "#cc9a9a"
                                        ]]
                             "x"
 
-                view [ V.style [ V_.flex 1
+                view [ style [ V_.flex 1
                                , V_.marginLeft 15
                                , V_.marginTop 1
                                ]] $
@@ -149,37 +145,37 @@ mainSectionFooter :: TodoState -> ReactElementM eventHandler ()
 mainSectionFooter = mkView "msfooter" $ \(TodoState todos filtering) ->
     let completed = length (filter (todoComplete . snd) todos)
         itemsLeft = length todos - completed
-        styling f = V.style $ filterStyle ++ (if f == filtering then activeFilterStyle else [])
+        styling f = style $ filterStyle ++ (if f == filtering then activeFilterStyle else [])
      in
-        view [ V.style [ V_.flexDirection Row
+        view [ style [ V_.flexDirection Row
                        , V_.borderTopWidth 1
                        , V_.borderTopColor "#e6e6e6"
                        , V_.paddingVertical 10
                        , V_.paddingHorizontal 15
                        , V_.justifyContent SpaceBetween_
                        ]] $ do
-            view [ V.style [ V_.flexDirection Row ] ] $ do
-                text [ T.style  $ fontWeight Bold : footerStyles ] $
+            view [ style [ V_.flexDirection Row ] ] $ do
+                text [ style  $ fontWeight Bold : footerStyles ] $
                     elemShow itemsLeft
-                text [ T.style  footerStyles ] $
+                text [ style  footerStyles ] $
                     if itemsLeft == 1 then " item left" else " items left"
 
-            view [ V.style [ V_.flexDirection Row
+            view [ style [ V_.flexDirection Row
                            , V_.justifyContent Center_____
                            , V_.flexWrap Wrap
                            , V_.flex 1
                            ]] $ do
-                touchableOpacity [ TO.onPress $ dispatchTodo (SetFilter AcceptAll) ] $
+                touchableOpacity [ onPress $ dispatchTodo (SetFilter AcceptAll) ] $
                     view [styling AcceptAll] $
-                        text [ T.style  [fontFamily "HelveticaNeue"] ] "All"
-                touchableOpacity [ TO.onPress $ dispatchTodo (SetFilter AcceptActive) ] $
+                        text [ style  [fontFamily "HelveticaNeue"] ] "All"
+                touchableOpacity [ onPress $ dispatchTodo (SetFilter AcceptActive) ] $
                     view [styling AcceptActive] $
-                        text [ T.style  [fontFamily "HelveticaNeue"] ] "Active"
-                touchableOpacity [ TO.onPress $ dispatchTodo (SetFilter AcceptCompleted) ] $
+                        text [ style  [fontFamily "HelveticaNeue"] ] "Active"
+                touchableOpacity [ onPress $ dispatchTodo (SetFilter AcceptCompleted) ] $
                     view [styling AcceptCompleted] $
-                        text [ T.style  [fontFamily "HelveticaNeue"] ] "Completed"
+                        text [ style  [fontFamily "HelveticaNeue"] ] "Completed"
 
-            touchableOpacity [ TO.onPress $ dispatchTodo ClearCompletedTodos ] $
-                view [ V.style (if completed == 0 then [V_.opacity 0] else []) ] $
-                    text [ T.style (flexWrap Wrap : footerStyles) ]
+            touchableOpacity [ onPress $ dispatchTodo ClearCompletedTodos ] $
+                view [ style (if completed == 0 then [V_.opacity 0] else []) ] $
+                    text [ style (flexWrap Wrap : footerStyles) ]
                         "Clear completed"

@@ -8,41 +8,43 @@
     "start-web":    "PLATFORM=web    node node_modules/webpack-dev-server/bin/webpack-dev-server.js --port=$PORT --progress --colors --content-base=../ --inline --hot",
     "pack": "node ./node_modules/webpack/bin/webpack.js"
   },
-  "babel": {
-    "presets": ["react-native"],
-    "ignore": [
-      "all.js"
-    ]
+  "browser":{
+    "child_process": false,
+    "fs": false
   },
   "dependencies": {
-    "rnpm": "1.9.0",
-    "rnpm-plugin-windows": "0.1.1",
-    "webpack": "4.13.0",
-    "webpack-cli": "3.0.8",
-    "webpack-dev-server": "3.1.4",
     "json-loader": "0.5.4",
-    "babel-loader": "7.1.4",
-    "babel-core": "6.26.3",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-stage-0": "6.24.1",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-react-native": "4.0.0",
-    "babel-plugin-add-module-exports": "0.2.1",
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
     "react-native-cli": "2.0.1",
-    "react-native": "0.51.0",
-    "react-native-web": "0.8.5",
-    "react-art": "16.0.0",
+    "react-native": "0.57.8",
+    "react-native-web": "0.11.2",
+    "react-art": "16.6.3",
     "react-native-macos-cli": "2.0.1",
-    "react-native-macos": "0.16.1",
+    "react-native-macos": "0.19.2",
     "react-native-webgl": "0.8.0",
     "create-react-class": "15.6.3",
-    "prop-types": "15.6.2",
+    "prop-types": "15.7.2",
     "socket.io-client": "1.5.1",
     "Base64": "0.3.0"
   },
   "devDependencies": {
-    "react-devtools": "3.2.3"
+    "rnpm": "1.9.0",
+    "rnpm-plugin-windows": "0.1.1",
+    "babel-loader": "8.0.5",
+    "@babel/core": "7.4.0",
+    "@babel/preset-env": "7.4.0",
+    "@babel/preset-stage-0": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.0",
+    "metro-react-native-babel-preset": "0.53.1",
+    "babel-preset-react-native": "4.0.1",
+    "babel-plugin-add-module-exports": "1.0.0",
+    "babel-plugin-module-resolver": "3.2.0",
+    "metro-config": "0.53.1",
+    "react-devtools": "3.6.1",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.3.0",
+    "webpack-dev-server": "3.2.1"
   }
 }

@@ -1,6 +1,8 @@
 var path = require('path');
 
 module.exports = {
+  mode: 'development',
+  node: { process: false },
   module: {
     rules: [
       {
@@ -15,9 +17,10 @@ module.exports = {
       {
         loader: "babel-loader",
         test: /\.jsx?$/,
-        exclude: [/rts.js/,/out.js/,/lib.js/,/runmain.js/,/node_modules(?!\/react-native-(vector-icons|animatable))/],
+        exclude: [/all.js/,/rts.js/,/out.js/,/lib.js/,/runmain.js/,/node_modules(?!\/react-native-(vector-icons|animatable))/],
         options: {
-          presets: ['env', 'stage-0', 'react'],
+          babelrc: false,
+          presets: ["@babel/preset-env", '@babel/react', 'module:metro-react-native-babel-preset'],
           plugins: ['add-module-exports'],
           cacheDirectory: true
         }

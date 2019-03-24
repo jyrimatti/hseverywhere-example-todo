@@ -22,13 +22,14 @@ import           React.Flux.Rn.Views
 import           React.Flux                          (StoreArg)
 import           React.Flux.Rn.Components.ScrollView
 import           React.Flux.Rn.Styles.View
+import           React.Flux.Rn.Props.ViewProps (style)
 
 import           Store
 import           TodoViews.Footer
 import           TodoViews.Header
 import           TodoViews.MainSection
 
-app :: View ()
+app :: ReactView ()
 app = mkControllerView @'[StoreArg TodoState] "todo app" $ \todoState () ->
     scrollView [ style [ backgroundColor "#f5f5f5" ]] $ do
         todoHeader ()
