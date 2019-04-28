@@ -35,7 +35,6 @@ const platformBlacklists = {
     '.web.js',
     '.windows.js',
     'node_modules/react-native-web/.*',
-    'node_modules/react-native/.*',
     'node_modules/react-native-windows/.*',
     'node_modules/[^/]+/.git/.*'
   ],
@@ -65,6 +64,9 @@ function bl() {
 module.exports = {
   resolver: {
     blacklistRE: bl()
+  },
+  server: {
+    enableVisualizer: true
   },
   getBlacklistRE(platform) {
     return bl();

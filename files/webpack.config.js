@@ -20,9 +20,8 @@ module.exports = {
         exclude: [/all.js/,/rts.js/,/out.js/,/lib.js/,/runmain.js/,/node_modules(?!\/react-native-(vector-icons|animatable))/],
         options: {
           babelrc: false,
-          presets: ["@babel/preset-env", '@babel/react', 'module:metro-react-native-babel-preset'],
-          plugins: ['add-module-exports'],
-          cacheDirectory: true
+          presets: ['module:metro-react-native-babel-preset'],
+          plugins: ['add-module-exports']
         }
       },
       {

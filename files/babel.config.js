@@ -22,9 +22,11 @@ module.exports = function (api) {
         return {};
     }
 
-    const presets = ["@babel/preset-env", "module:metro-react-native-babel-preset"];
-    const plugins = ["module-resolver", platform()];
-    const ignore = ["all.js"];
+    const presets = ["module:metro-react-native-babel-preset"];
+    const plugins = [
+        ["module-resolver", platform()]
+    ];
+    const ignore = ["**/all.js"];
   
     return {
       presets,
